@@ -1,19 +1,16 @@
 // index.js
 import express from 'express';
 import dotenv from 'dotenv';
-import connectDB from './config/db.js';
-import userRoutes from './routes/userRoutes.js';
+import dbConnect from './config/db.js';
 
-dotenv.config();           // Load environment variables from .env
-const app = express();     // Initialize Express
+dotenv.config();           
 
-app.use(express.json());   // Middleware to parse JSON request bodies
+const app = express();     
+
+app.use(express.json());   
 
 // Connect to MongoDB
-connectDB();
-
-// Routes
-app.use('/api/users', userRoutes);
+dbConnect()
 
 // Default route
 app.get('/', (req, res) => {
@@ -23,5 +20,5 @@ app.get('/', (req, res) => {
 // Start the server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
-  console.log(`🚀 Server is running on port ${PORT}`);
+  console.log(`Server is running on port ${PORT}`);
 });
